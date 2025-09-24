@@ -1,16 +1,83 @@
-<html>
-    <head><title>Time's Up</title>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sleep Reminder</title>
         <style>
-            h1 {
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                background-color: #0d0d0d;
+                color: #f5f5f5;
+                font-family: 'Segoe UI', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 text-align: center;
             }
+    
+            .container {
+                max-width: 700px;
+                padding: 20px;
+            }
+    
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+                color: #ffcc00;
+            }
+    
+            p {
+                font-size: 1.4em;
+                line-height: 1.6;
+            }
+    
+            .quote {
+                margin-top: 30px;
+                font-size: 1.2em;
+                font-style: italic;
+                color: #ccc;
+            }
+    
+            .footer {
+                margin-top: 40px;
+                font-size: 1.1em;
+                color: #999;
+            }
         </style>
-    </style>
-
     </head>
     <body>
-        <h1>Sleep is essential for good health as it improves brain performance, mood, and overall health. </h1>
-        <h1>It plays a critical role in various bodily functions, including the immune system's ability to repair</h1>
-        <h1>and fight disease, and helps maintain a healthy weight and cognitive function.</h1>
+        <div class="container">
+            <h1>N, it's time to sleep 💤</h1>
+            <p>
+                Sleep is essential for good health as it improves brain performance, mood, and overall well-being.<br><br>
+                It plays a critical role in various bodily functions, including your immune system’s ability to repair and fight disease.<br><br>
+                It also helps maintain a healthy weight and sharp cognitive function—exactly what your architecture and automation work demands.
+            </p>
+            <div class="quote" id="quoteBox"></div>
+            <div class="footer">
+                Your system shutdown is scheduled for 10:50 PM. Honor it. Your future self will thank you.
+            </div>
+        </div>
+    
+        <script>
+            const quotes = [
+                "Discipline is choosing between what you want now and what you want most.",
+                "You don’t rise to the level of your goals—you fall to the level of your systems.",
+                "Sleep isn’t a luxury. It’s your brain’s nightly reboot.",
+                "You can’t automate greatness on 4 hours of sleep.",
+                "Every hour past midnight is borrowed time. Pay it back.",
+                "You’re building scalable systems. Start with your body.",
+                "Rest is not weakness. It’s strategic recovery.",
+                "If you wouldn’t skip a deployment, don’t skip sleep.",
+                "Sleep is the most underrated productivity tool you own.",
+                "Your future self is watching. Don’t disappoint them."
+            ];
+    
+            const quoteBox = document.getElementById("quoteBox");
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteBox.textContent = `"${randomQuote}"`;
+        </script>
     </body>
 </html>
