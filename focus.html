@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Focus Reminder</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f4f4f4;
+            color: #222;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #0078D7;
+        }
+
+        p {
+            font-size: 1.4em;
+            line-height: 1.6;
+        }
+
+        .quote {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FOCUS!!! Your bot is waiting.</h1>
+        <p>
+            Every line of code you write brings your bot closer to becoming a persistent, intelligent agent—one that enforces your routines, escalates accountability, and automates your life with precision.<br><br>
+            This isn’t just a side project. It’s a system upgrade for your future self.<br><br>
+            You’re not just building software. You’re engineering discipline, clarity, and control.
+        </p>
+        <div class="quote" id="quoteBox"></div>
+        <div class="footer">
+            These shows will still be there, 1 year, 10 year or 50 years from now...
+        </div>
+    </div>
+
+    <script>
+        const quotes = [
+            "Systems don’t care how you feel. They execute.",
+            "You’re not coding a bot. You’re coding a better version of yourself.",
+            "Every automation is one less excuse.",
+            "Your bot doesn’t procrastinate. Why should you?",
+            "You’re building a machine that holds you accountable. That’s power.",
+            "Focus is a feature. Ship it.",
+            "You don’t need motivation. You need momentum.",
+            "Your bot is your second brain. Train it well.",
+            "Discipline isn’t built. It’s engineered.",
+            "You’re not just solving problems. You’re solving yourself."
+        ];
+
+        const quoteBox = document.getElementById("quoteBox");
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteBox.textContent = `"${randomQuote}"`;
+    </script>
+</body>
+</html>
