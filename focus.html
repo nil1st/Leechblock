@@ -24,38 +24,56 @@
 
         h1 {
             font-size: 2.5em;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             color: #00bfff;
         }
 
         p {
-            font-size: 1.4em;
+            font-size: 1.15em;
             line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .timer {
+            margin: 18px 0;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #ffd166;
+        }
+
+        .hint {
+            font-size: 0.95em;
+            color: #9fb7da;
+            margin-bottom: 10px;
         }
 
         .quote {
-            margin-top: 30px;
-            font-size: 1.2em;
+            margin-top: 22px;
+            font-size: 1.05em;
             font-style: italic;
             color: #ccc;
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 28px;
             font-size: 1.1em;
             color: #888;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>FOCUS!!! Your bot is waiting.</h1>
+        <h1 id="title">FOCUS!!! Your bot is waiting.</h1>
+
+        <div class="timer" id="timer">Calculating…</div>
+        <div class="hint" id="hint">This page will unblock when the timer reaches zero.</div>
+
         <p>
             Every line of code you write brings your bot closer to becoming a persistent, intelligent agent—one that enforces your routines, escalates accountability, and automates your life with precision.<br><br>
             This isn’t just a side project. It’s a system upgrade for your future self.<br><br>
             You’re not just building software. You’re engineering discipline, clarity, and control.
         </p>
+
         <div class="quote" id="quoteBox"></div>
         <div class="footer">
             These shows will still be there, 1 year, 10 year or 50 years from now...
@@ -63,6 +81,7 @@
     </div>
 
     <script>
+        // Quotes
         const quotes = [
             "Systems don’t care how you feel. They execute.",
             "You’re not coding a bot. You’re coding a better version of yourself.",
@@ -75,10 +94,57 @@
             "Discipline isn’t built. It’s engineered.",
             "You’re not just solving problems. You’re solving yourself."
         ];
+        document.getElementById("quoteBox").textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
 
-        const quoteBox = document.getElementById("quoteBox");
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        quoteBox.textContent = `"${randomQuote}"`;
+        // Timer: read ?expiry=ms_since_epoch or ?remaining=seconds
+        function getRemainingSecondsFromParams() {
+            const params = new URLSearchParams(window.location.search);
+            const expiry = params.get('expiry'); // ms since epoch
+            if (expiry) {
+                const t = parseInt(expiry, 10);
+                if (Number.isFinite(t)) {
+                    return Math.max(0, Math.ceil((t - Date.now()) / 1000));
+                }
+            }
+            const r = params.get('remaining'); // seconds
+            const n = parseInt(r, 10);
+            return Number.isFinite(n) && n > 0 ? n : 0;
+        }
+
+        function formatSeconds(s) {
+            const hrs = Math.floor(s / 3600);
+            const mins = Math.floor((s % 3600) / 60);
+            const secs = s % 60;
+            if (hrs > 0) return `${hrs}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            return `${mins}:${String(secs).padStart(2,'0')}`;
+        }
+
+        const timerEl = document.getElementById('timer');
+        const hintEl = document.getElementById('hint');
+        const titleEl = document.getElementById('title');
+
+        let remaining = getRemainingSecondsFromParams();
+
+        function updateDisplay() {
+            if (remaining <= 0) {
+                timerEl.textContent = '0:00';
+                hintEl.textContent = 'Blocked period ended — reload the page to access the site.';
+                titleEl.textContent = 'You can go now.';
+                return;
+            }
+            timerEl.textContent = formatSeconds(remaining);
+            hintEl.textContent = 'This page will unblock when the timer reaches zero.';
+        }
+
+        updateDisplay();
+
+        if (remaining > 0) {
+            const id = setInterval(() => {
+                remaining--;
+                updateDisplay();
+                if (remaining <= 0) clearInterval(id);
+            }, 1000);
+        }
     </script>
 </body>
 </html>
