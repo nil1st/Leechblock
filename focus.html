@@ -56,7 +56,7 @@
             This isn’t just a side project. It’s a system upgrade for your future self.<br><br>
             You’re not just building software. You’re engineering discipline, clarity, and control.
         </p>
-        <div id="blocked-url">Blocked page: <span id="url-text">loading…</span></div>
+        <div id="blocked-url">Blocked page: <a id="url-link" href="#" rel="noopener noreferrer" target="_blank">loading…</a></div>
         <div class="quote" id="quoteBox"></div>
         <div class="footer">
             These shows will still be there, 1 year, 10 year or 50 years from now...
@@ -64,16 +64,21 @@
     </div>
 
     <script>
-        // Prefer document.referrer (sent by the browser when linking/navigation occurred)
-        const ref = document.referrer || '';
-    
         // Some blockers/openers may pass the blocked URL via query string, e.g., ?from=https%3A%2F%2Fexample.com
         const params = new URLSearchParams(location.search);
         const fromParam = params.get('from') || params.get('url') || params.get('blocked');
-      
-        const blockedUrl = fromParam ? decodeURIComponent(fromParam) : ref;
+        const blockedUrl = fromParam ? decodeURIComponent(fromParam);
+        const link = document.getElementById('url-link');
     
-        document.getElementById('url-text').textContent = blockedUrl || 'unknown';
+        //document.getElementById('url-text').textContent = blockedUrl || 'unknown';
+        if (blockedUrl) {
+            link.href = blockedUrl;
+            link.textContent = blockedUrl;
+        } else {
+            link.href = '#';
+            link.textContent = 'unknown';
+            link.removeAttribute('target');
+        }
         
         const quotes = [
             "Systems don’t care how you feel. They execute.",
