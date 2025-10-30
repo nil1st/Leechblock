@@ -67,7 +67,7 @@
         // Some blockers/openers may pass the blocked URL via query string, e.g., ?from=https%3A%2F%2Fexample.com
         const params = new URLSearchParams(location.search);
         const fromParam = params.get('from') || params.get('url') || params.get('blocked');
-        const blockedUrl = fromParam ? decodeURIComponent(fromParam);
+        const blockedUrl = fromParam ? decodeURIComponent(fromParam): null;
         const link = document.getElementById('url-link');
     
         //document.getElementById('url-text').textContent = blockedUrl || 'unknown';
