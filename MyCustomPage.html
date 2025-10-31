@@ -59,9 +59,25 @@
             <div class="footer">
                 No more browsing. No more Doom-Scrolling. Sleep.
             </div>
+            <div id="blocked-url">Blocked page: <a id="url-link" href="#" rel="noopener noreferrer" target="_blank">loading…</a></div>
         </div>
     
         <script>
+            // Some blockers/openers may pass the blocked URL via query string, e.g., ?from=https%3A%2F%2Fexample.com
+            const params = new URLSearchParams(location.search);
+            const fromParam = params.get('from') || params.get('url') || params.get('blocked');
+            const blockedUrl = fromParam ? decodeURIComponent(fromParam): null;
+            const link = document.getElementById('url-link');
+        
+            //document.getElementById('url-text').textContent = blockedUrl || 'unknown';
+            if (blockedUrl) {
+                link.href = blockedUrl;
+                link.textContent = blockedUrl;
+            } else {
+                link.href = '#';
+                link.textContent = 'unknown';
+                link.removeAttribute('target');
+            }
             const quotes = [
               "Discipline is choosing between what you want now and what you want most.",
               "You don’t rise to the level of your goals—you fall to the level of your systems.",
